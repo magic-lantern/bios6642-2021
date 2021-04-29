@@ -19,6 +19,12 @@ import re
 
 # %% [markdown]
 # # Web scraping with Pandas
+#
+# Pandas has functionality that allows one to read in data from a variety of sources. Some include:
+#
+# * comma separated value or tab separated value files
+# * databases (anything supported by SQLAlchemy)
+# * web pages (finds all HTML tables)
 
 # %%
 import pandas as pd
@@ -30,17 +36,31 @@ url = 'https://www.espn.com/mens-college-basketball/team/stats/_/id/38/colorado-
 dfs = pd.read_html(url)
 print(len(dfs))
 
+# %% [markdown]
+# You may notice when looking at the web page that it looks like two stats tables, not 4.
+
 # %%
 for df in dfs:
     print(df.head())
+    print('------------')
+
+# %% [markdown]
+# It appears that the player info is in a separate table from their stats. Let's combine the two.
 
 # %%
-url = 'https://cubuffs.com/sports/mens-basketball/stats/2019-20'
+stats_df = pd.concat([dfs[2], dfs[3]], axis=1)
+stats_df
+
+# %%
+# url = 'https://cubuffs.com/sports/mens-basketball/stats/2019-20'
 url = 'https://en.wikipedia.org/wiki/Colorado_Buffaloes_men%27s_basketball'
 
 # %%
 dfs = pd.read_html(url)
 print(len(dfs))
+
+# %% [markdown]
+# Compare https://en.wikipedia.org/wiki/Colorado_Buffaloes_men%27s_basketball#NCAA_Tournament_results to this
 
 # %%
 dfs[18]
@@ -185,9 +205,37 @@ li = driver.find_element_by_id('p_n_feature_two_browse-bin/13203835011')
 li.find_element_by_class_name('a-link-normal').click()
 
 # %%
-product_names = driver.find_element_by_css_selector('.a-size-medium.a-color-base.a-text-normal')
+product_desc = []
+product_price = []
+
+products = driver.find_elements_by_css_selector('.sg-col.sg-col-4-of-12.sg-col-8-of-16.sg-col-12-of-20')
+for p in products:
+    product_desc.append(
+        p.find_element_by_css_selector('.a-size-medium.a-color-base.a-text-normal').text[:50]
+    )
+    
+    dollars = p.find_elements_by_class_name('a-price-whole')
+    price = None
+    if len(dollars) > 0:
+        price = float(dollars[0].text)
+    cents = p.find_elements_by_class_name('a-price-fraction')
+    if len(cents) > 0:
+        price = price + float('0.' + cents[0].text)
+    product_price.append(price)
+
+# %% [markdown]
+# In order to build a dataframe from this information, both lists must be the same lenght. Check to make sure first
 
 # %%
+len(product_desc)
+
+# %%
+len(product_price)
+
+# %%
+pd.DataFrame({'product':product_desc,
+              'price':product_price
+              })
 
 # %% [markdown]
 # ### Cleaning up
