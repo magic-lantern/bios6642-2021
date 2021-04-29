@@ -19,13 +19,18 @@ import re
 import time
 
 # %% [markdown]
-# # Web scraping with Pandas
+# # Web scraping
+#
+# The best tool to use is the one you already know. 
 #
 # Pandas has functionality that allows one to read in data from a variety of sources. Some include:
 #
 # * comma separated value or tab separated value files
 # * databases (anything supported by SQLAlchemy)
 # * web pages (finds all HTML tables)
+#
+# To learn more, see https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_html.html. Note this method doesn't support https and has a few other gotchas.
+#
 
 # %%
 import pandas as pd
@@ -67,7 +72,13 @@ print(len(dfs))
 dfs[18]
 
 # %% [markdown]
-# # Web Scraping
+# Also note, that Pandas can create HTML - so you can use Python to create a table for a web page.
+
+# %%
+dfs[18].to_html()
+
+# %% [markdown]
+# # More web Scraping
 
 # %%
 import re
