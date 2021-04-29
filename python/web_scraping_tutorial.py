@@ -151,6 +151,7 @@ for t in r.html.find('time'):
 from selenium import webdriver
 from IPython.display import Image
 from selenium.webdriver.support.select import Select
+from selenium.webdriver.support.ui import WebDriverWait
 
 # %%
 from selenium.webdriver.firefox.options import Options as firefoxoptions
@@ -217,24 +218,35 @@ search_box.submit()
 # %% [markdown]
 # Due to needing time for browser to load and render all content, if you run this next cell immediately after the previous one, it may fail.
 #
-# Added `time.sleep()` call to help prevent problems.
+# There are a few options to solve this issue:
+#
+# * Put in an explicit wait via `time.sleep()` call to help prevent problems.
+# * Configure the driver to wait if an element found doesn't exist via `driver.implicitly_wait(n)`. In my experience with the Gecko driver, this can fail when chaining operations such as `li.find_element_by_class_name('a-link-normal').click()`
+# * Depending on what is needed on a page, wait for that explicitly via `WebDriverWait(driver, n)`
+#
+# See https://selenium-python.readthedocs.io/waits.html for more information.
 
 # %%
-time.sleep(2)
+# Tell selenium to wait up to 5 seconds for desired elements to exist
+driver.implicitly_wait(5)
+
+# %%
+# implicity_wait works here
 dropdown = driver.find_element_by_class_name('a-dropdown-container')
 dropdown.click()
 
 # %%
 # sort by 'Price: Low to High'
-driver.find_element_by_id('s-result-sort-select_1').click() 
+# implicity_wait often fails here
+# time.sleep(2)
+driver.find_element_by_id('s-result-sort-select_1').click()
 
 # %%
-time.sleep(2)
-
 # despite search terms, some small SDCards are shown
 # click on the filter link on the left
 li = driver.find_element_by_id('p_n_feature_two_browse-bin/13203835011')
-li.find_element_by_class_name('a-link-normal').click()
+li_class = li.find_element_by_class_name('a-link-normal')
+li_class.click()
 
 # %%
 product_desc = []

@@ -23,10 +23,8 @@ conda init powershell
 
 ## Notes and useful information
 
-
 Web scraping tutorial
   *	https://www.scrapingbee.com/blog/web-scraping-101-with-python/
-
 
 Problems with many web scraping tools - no javascript support.
 
@@ -36,7 +34,6 @@ Some python web scraping options:
 *	Beautifulsoup4 - https://www.crummy.com/software/BeautifulSoup/
 * Requests-HTML - https://requests-html.kennethreitz.org/ and https://github.com/psf/requests-html Note - this cannot run inside jupyter due to asyncio event loops that conflict. Many bugs currently open with solutions that only work for some.
 * https://github.com/pyppeteer/pyppeteer - Python port of puppeteer JavaScript (headless) chrome/chromium browser automation library.
-
 
 Besides the above, there are also APIs that allow you to download data from more specialized web services. For example to download data from google drive:
 
