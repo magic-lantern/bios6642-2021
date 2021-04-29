@@ -21,7 +21,13 @@ import time
 # %% [markdown]
 # # Web scraping
 #
-# The best tool to use is the one you already know. 
+# Why web scraping?
+#
+# Many experts have proposed that 80% of a machine learning/AI project is spent on data gathering and preparation, with 20% spent on training a model. For more on this topic, watch Dr. Andrew Ng's presention on data centric AI availble at https://youtu.be/06-AZXmwHjo.
+#
+# Data gathering is hard. If you can re-use data gathered by someone else, it can make your project possible. Note, reusing data collected for another purpose will still be hard and require quite a bit of data preparation.
+#
+# **The best tool to use is the one you already know.**
 #
 # Pandas has functionality that allows one to read in data from a variety of sources. Some include:
 #
