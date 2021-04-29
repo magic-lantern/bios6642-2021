@@ -99,6 +99,13 @@ for time in r.html.find('time'):
 # brew install geckodriver
 # brew install chromedriver
 # ```
+#
+# On Windows 10, you can use `choco` (https://chocolatey.org/) to install the dependencies (Run this in an Administrator shell):
+#
+# ```pwsh
+# choco install selenium-gecko-driver
+# choco install selenium-chrome-driver
+# ```
 
 # %%
 from selenium import webdriver
@@ -151,6 +158,8 @@ for t in driver.find_elements_by_tag_name('time'):
 
 # %% [markdown]
 # ### A slightly more advanced example
+#
+# Web scraping requires knowledge of HTML, CSS3, and Javascript. Most
 
 # %%
 driver.get('https://www.amazon.com')
@@ -166,21 +175,17 @@ dropdown = driver.find_element_by_class_name('a-dropdown-container')
 dropdown.click()
 
 # %%
-driver.find_element_by_css_selector('.a-dropdown-prompt').click()
 # sort by 'Price: Low to High'
 driver.find_element_by_id('s-result-sort-select_1').click() 
 
 # %%
-# need to see if this workss
-li = driver.find_element_by_css_selector('#p_n_feature_two_browse-bin/13203835011 .a-size-base')
+# despite search terms, some small SDCards are shown
+# click on the filter link on the left
+li = driver.find_element_by_id('p_n_feature_two_browse-bin/13203835011')
+li.find_element_by_class_name('a-link-normal').click()
 
 # %%
-li.find_elem
-
-# %%
-sortby
-
-# %%
+product_names = driver.find_element_by_css_selector('.a-size-medium.a-color-base.a-text-normal')
 
 # %%
 

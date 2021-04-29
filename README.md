@@ -2,6 +2,14 @@
  
 BIOS 6642 Introduction to Python Programming, Spring 2021
 
+To Setup a similar Python environment to what is used in the presentations, run:
+
+`conda env create -f ./environment.yml`
+
+Command to enable `conda` in VSCode `pwsh` shell:
+
+`pwsh -ExecutionPolicy ByPass -NoExit -Command "& 'C:\Anaconda3\shell\condabin\conda-hook.ps1'"`
+
 Guest lecture on:
 
 * Git
