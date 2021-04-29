@@ -8,7 +8,12 @@ To Setup a similar Python environment to what is used in the presentations, run:
 
 Command to enable `conda` in VSCode `pwsh` shell:
 
-`pwsh -ExecutionPolicy ByPass -NoExit -Command "& 'C:\Anaconda3\shell\condabin\conda-hook.ps1'"`
+```powershell
+pwsh -ExecutionPolicy ByPass -NoExit -Command "& 'C:\Anaconda3\shell\condabin\conda-hook.ps1'"
+# now modify powershell startup to always make conda available
+conda init powershell
+```
+
 
 Guest lecture on:
 

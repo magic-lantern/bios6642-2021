@@ -123,9 +123,11 @@ for t in r.html.find('time'):
 #
 # On Windows 10, you can use `choco` (https://chocolatey.org/) to install the dependencies (Run this in an Administrator shell):
 #
-# ```pwsh
+# ```powershell
+# # use this line to install firefox version
 # choco install selenium-gecko-driver
-# choco install selenium-chrome-driver
+# # use this line to install chrome version
+# choco install chromedriver
 # ```
 
 # %%
@@ -146,6 +148,9 @@ driver.save_screenshot('firefox.png')
 # %%
 pprint(driver.capabilities)
 
+# %%
+Image(filename='firefox.png')
+
 # %% [markdown]
 # Alternatively use Chrome
 # ```python
@@ -156,10 +161,8 @@ pprint(driver.capabilities)
 # driver.set_window_size(640,480)
 # driver.get(url)
 # driver.save_screenshot('chrome.png')
+# Image(filename='chrome.png')
 # ```
-
-# %%
-Image(filename='firefox.png') 
 
 # %%
 page_html = driver.page_source
@@ -180,7 +183,10 @@ for t in driver.find_elements_by_tag_name('time'):
 # %% [markdown]
 # ### A slightly more advanced example
 #
-# Web scraping requires knowledge of HTML, CSS3, and Javascript. Most
+# Similar to web development, using Selenium for web scraping requires knowledge of HTML, CSS, and Javascript. One important skill to have is how to select elements from the document object model. There are various ways of identifying or selecting desired elements. Here are some references to learn more:
+#
+# * [The 30 CSS Selectors You Must Memorize](https://code.tutsplus.com/tutorials/the-30-css-selectors-you-must-memorize--net-16048)
+# * [CSS Selector Reference](https://www.w3schools.com/cssref/css_selectors.asp)
 
 # %%
 driver.get('https://www.amazon.com')
