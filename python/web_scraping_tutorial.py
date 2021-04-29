@@ -16,6 +16,7 @@
 # some libraries that are used across examples
 from pprint import pprint
 import re
+import time
 
 # %% [markdown]
 # # Web scraping with Pandas
@@ -97,9 +98,9 @@ for n in range(20):
 r.html.find('time')
 
 # %%
-for time in r.html.find('time'):
-    if 'id' in time.attrs.keys():
-        print(f'UTC Time is: {time.text}')
+for t in r.html.find('time'):
+    if 'id' in t.attrs.keys():
+        print(f'UTC Time is: {t.text}')
 
 # %% [markdown]
 # ## Web scraping using Selenium and a web browser
@@ -136,7 +137,7 @@ from selenium.webdriver.support.select import Select
 from selenium.webdriver.firefox.options import Options as firefoxoptions
 options = firefoxoptions()
 # comment out this line to see what's happening
-# options.headless = True
+options.headless = True
 driver = webdriver.Firefox(options=options)
 driver.set_window_size(1024,768)
 driver.get(url)
@@ -190,7 +191,13 @@ search_box.clear()
 search_box.send_keys('512GB sd card\n')
 search_box.submit()
 
+# %% [markdown]
+# Due to needing time for browser to load and render all content, if you run this next cell immediately after the previous one, it may fail.
+#
+# Added `time.sleep()` call to help prevent problems.
+
 # %%
+time.sleep(2)
 dropdown = driver.find_element_by_class_name('a-dropdown-container')
 dropdown.click()
 
@@ -199,6 +206,8 @@ dropdown.click()
 driver.find_element_by_id('s-result-sort-select_1').click() 
 
 # %%
+time.sleep(2)
+
 # despite search terms, some small SDCards are shown
 # click on the filter link on the left
 li = driver.find_element_by_id('p_n_feature_two_browse-bin/13203835011')
@@ -211,6 +220,7 @@ product_price = []
 products = driver.find_elements_by_css_selector('.sg-col.sg-col-4-of-12.sg-col-8-of-16.sg-col-12-of-20')
 for p in products:
     product_desc.append(
+        # product names/descriptions can be very long. just get first 50 characterss
         p.find_element_by_css_selector('.a-size-medium.a-color-base.a-text-normal').text[:50]
     )
     
